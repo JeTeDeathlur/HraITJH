@@ -16,6 +16,7 @@ class GameWorld {
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(",");
                 rooms.put(parts[0], Arrays.asList(Arrays.copyOfRange(parts, 1, parts.length)));
+                //krtek
             }
         }
     }
