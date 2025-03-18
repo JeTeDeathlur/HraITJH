@@ -1,10 +1,23 @@
+import java.util.ArrayList;
+import java.util.List;
 
-import java.util.*;
 public class Inventory {
-    private List<Item> items;
+    private List<Item> items = new ArrayList<>();
 
-    public void addItem(Item item) {}
-    public void removeItem(Item item) {}
-    public boolean hasItem(String name) { return false; }
-    public List<Item> getItems() { return null; }
+    public void addItem(Item item) {
+        items.add(item);
+    }
+
+    public Item getItem(String itemName) {
+        for (Item item : items) {
+            if (item.getName().equalsIgnoreCase(itemName)) {
+                return item;
+            }
+        }
+        return null;
+    }
+
+    public List<Item> getItems() {
+        return items;
+    }
 }
