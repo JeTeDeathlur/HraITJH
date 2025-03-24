@@ -1,7 +1,6 @@
 public class UseCommand implements Command {
     private String itemName;
     private Player player;
-
     public UseCommand(Player player, String itemName) {
         this.player = player;
         this.itemName = itemName;
@@ -9,10 +8,8 @@ public class UseCommand implements Command {
 
     @Override
     public void execute() {
-        Item item = player.getInventory().getItems().stream()
-                .filter(i -> i.getName().equalsIgnoreCase(itemName))
-                .findFirst()
-                .orElse(null);
+
+        Item item = player.getInventory().getItem(itemName);
 
         if (item != null) {
             item.use(player);
@@ -21,3 +18,6 @@ public class UseCommand implements Command {
         }
     }
 }
+
+
+

@@ -1,6 +1,6 @@
 import java.util.List;
 
-public class TalkCommand implements Command {
+class TalkCommand implements Command {
     private Player player;
     private String characterName;
 
@@ -21,4 +21,3 @@ public class TalkCommand implements Command {
         System.out.println("Tato postava není v místnosti.");
     }
 }
-

@@ -1,8 +1,15 @@
-import java.util.ArrayList;
+
 import java.util.List;
 
+import java.util.ArrayList;
+
+
 public class Inventory {
-    private List<Item> items = new ArrayList<>();
+    private List<Item> items;
+
+    public Inventory() {
+        items = new ArrayList<>();
+    }
 
     public void addItem(Item item) {
         items.add(item);
@@ -16,8 +23,8 @@ public class Inventory {
         }
         return null;
     }
-
-    public List<Item> getItems() {
-        return items;
-    }
 }
+
+
+
+

@@ -1,8 +1,13 @@
-import java.util.*;
 
-public abstract class Item {
-    protected String name;
-    protected String description;
+
+public class Item {
+    private String name;
+    private String description;
+
+    public Item(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
 
     public String getName() {
         return name;
@@ -12,6 +17,17 @@ public abstract class Item {
         return description;
     }
 
-    public abstract void use(Player player);
+    public void use(Player player) {
+        if (name.equals("Klíč")) {
+
+            System.out.println("Použil jsi klíč k odemknutí místnosti.");
+
+        } else if (name.equals("Láhev s jedem")) {
+
+            System.out.println("Použil jsi láhev s jedem na stráže.");
+        }
+    }
 }
+
+
 
