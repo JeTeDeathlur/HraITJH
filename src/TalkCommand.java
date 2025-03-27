@@ -1,6 +1,6 @@
 import java.util.List;
 
-class TalkCommand implements Command {
+public class TalkCommand implements Command {
     private Player player;
     private String characterName;
 
@@ -11,13 +11,6 @@ class TalkCommand implements Command {
 
     @Override
     public void execute() {
-        List<Character> characters = player.getCurrentRoom().getCharacters();
-        for (Character character : characters) {
-            if (character.getName().equalsIgnoreCase(characterName)) {
-                player.talkTo(character);
-                return;
-            }
-        }
-        System.out.println("Tato postava není v místnosti.");
+        player.talkToCharacter(characterName);
     }
 }

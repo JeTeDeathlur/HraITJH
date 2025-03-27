@@ -9,16 +9,19 @@ public class TakeCommand implements Command {
 
     @Override
     public void execute() {
+        Room currentRoom = player.getCurrentRoom();
+
         Item item = null;
-        for (Item i : player.getCurrentRoom().getItems()) {
+        for (Item i : currentRoom.getItems()) {
             if (i.getName().equalsIgnoreCase(itemName)) {
                 item = i;
                 break;
             }
         }
+
         if (item != null) {
             player.getInventory().addItem(item);
-            player.getCurrentRoom().getItems().remove(item);
+            currentRoom.removeItem(item);
             System.out.println("Sebral jsi " + itemName);
         } else {
             System.out.println("Tento předmět není v místnosti.");

@@ -1,107 +1,76 @@
-import java.util.*;
 import java.util.Scanner;
 
 
 public class Game {
-    private Player player;
     private Scanner scanner;
+    private Player player;
+    private boolean gameRunning;
 
     public Game(Player player) {
-        this.player = player;
-        this.scanner = new Scanner(System.in);
+        scanner = new Scanner(System.in);
+        gameRunning = true;
     }
 
-
     public void start() {
-        System.out.println("Vítejte ve hře Útěk z vězení!");
-        System.out.println("Tvým úkolem je uniknout z vězení a očistit svoje jméno.");
 
-        while (true) {
-            System.out.println("\n-------------------------------------------------");
-            player.getCurrentRoom().describe();
-            showAvailableActions();
-            String command = scanner.nextLine();
+        Room mainCell = new Room("Hlavní cela", "Jsi v hlavní cele vězení. Všude je tma a zatuchlý vzduch.");
+        Room darkCorridor = new Room("Temné chodby", "Chodby vězení jsou úzké a temné.");
+
+
+        Item key = new Item("Klíč", "Klíč, který otevírá zámek v hlavní cele.");
+
+
+        mainCell.addItem(key);
+
+        Character guard = new Character("Strážce", "Strážce vězení, který patroluje chodby.");
+
+
+        mainCell.addCharacter(guard);
+
+        mainCell.addExit("jdi temné chodby", darkCorridor);
+
+
+        player = new Player(mainCell);
+
+
+        System.out.println("Vítej ve hře 'Útěk z vězení'.");
+        System.out.println("Co chceš dělat?");
+
+        while (gameRunning) {
+            System.out.print("> ");
+            String command = scanner.nextLine().toLowerCase();
             processCommand(command);
         }
     }
 
-
-    private void showAvailableActions() {
-        System.out.println("Co chceš dělat?");
-        System.out.println("Dostupné příkazy:");
-        System.out.println("1. jdi + místnost (např. jdi temné chodby)");
-        System.out.println("2. mluv + jméno postavy (např. mluv kuchař)");
-        System.out.println("3. prohledej + objekt (např. prohledej skříň)");
-        System.out.println("4. vezmi + předmět (např. vezmi klíč)");
-        System.out.println("5. použij + předmět (např. použij klíč)");
-        System.out.println("Pro ukončení hry napiš 'konec'.");
-    }
-
-
     private void processCommand(String command) {
-        String[] parts = command.split(" ", 2);
-        if (parts.length < 2) {
-            System.out.println("Neplatný příkaz. Zkus to znovu.");
-            return;
-        }
-
-        String action = parts[0].toLowerCase();
-        String target = parts[1].toLowerCase();
+        String[] commandParts = command.split(" ", 2);
+        String action = commandParts[0];
+        String argument = (commandParts.length > 1) ? commandParts[1] : "";
 
         switch (action) {
-            case "jdi":
-                moveToRoom(target);
-                break;
-            case "mluv":
-                talkToCharacter(target);
-                break;
             case "prohledej":
-                searchItem(target);
+                if (argument.equalsIgnoreCase("místnost")) {
+                    player.getCurrentRoom().describe();
+                } else {
+                    System.out.println("Neznámý příkaz.");
+                }
                 break;
             case "vezmi":
-                takeItem(target);
+                player.takeItem(argument);
                 break;
-            case "pouzij":
-                useItem(target);
+            case "jdi":
+                player.moveTo(player.getCurrentRoom().getExit(argument));
+                break;
+            case "mluv":
+                player.talkToCharacter(argument);
                 break;
             case "konec":
-                System.out.println("Konec hry. Děkujeme za hraní!");
-                System.exit(0);
+                gameRunning = false;
+                System.out.println("Hra byla ukončena.");
                 break;
             default:
-                System.out.println("Tento příkaz není podporován.");
+                System.out.println("Neznámý příkaz.");
         }
-    }
-
-
-    private void moveToRoom(String roomName) {
-        Room exitRoom = player.getCurrentRoom().getExit(roomName);
-        if (exitRoom != null) {
-            player.moveTo(exitRoom);
-        } else {
-            System.out.println("Tato místnost neexistuje.");
-        }
-    }
-
-
-    private void talkToCharacter(String characterName) {
-        player.talkToCharacter(characterName);
-    }
-
-
-    private void searchItem(String itemName) {
-        player.searchItem(itemName);
-    }
-
-
-    private void takeItem(String itemName) {
-        player.takeItem(itemName);
-    }
-
-
-    private void useItem(String itemName) {
-        player.useItem(itemName);
     }
 }
-
-

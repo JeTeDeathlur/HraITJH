@@ -1,5 +1,5 @@
-
 import java.util.*;
+
 
 public class Room {
     private String name;
@@ -7,7 +7,6 @@ public class Room {
     private List<Item> items;
     private List<Character> characters;
     private Map<String, Room> exits;
-
     public Room(String name, String description) {
         this.name = name;
         this.description = description;
@@ -15,6 +14,7 @@ public class Room {
         this.characters = new ArrayList<>();
         this.exits = new HashMap<>();
     }
+
 
     public void describe() {
         System.out.println(description);
@@ -25,19 +25,14 @@ public class Room {
         for (Character character : characters) {
             System.out.println("- Postava: " + character.getName() + ": " + character.getDescription());
         }
-
-
-        System.out.println("\nNapověda:");
-        System.out.println("Pro prozkoumání místnosti napiš: prohledej místnost.");
-
-        for (Item item : items) {
-            System.out.println("Pro sebrání předmětu " + item.getName() + " napiš: vezmi " + item.getName());
-        }
-        for (Character character : characters) {
-            System.out.println("Pro mluvení s " + character.getName() + " napiš: mluv " + character.getName());
-        }
-
     }
+
+
+    public List<Item> getItems() {
+        return items;
+    }
+
+
     public Item getItem(String itemName) {
         for (Item item : items) {
             if (item.getName().equalsIgnoreCase(itemName)) {
@@ -45,28 +40,18 @@ public class Room {
             }
         }
         return null;
-
     }
+
+
     public void addItem(Item item) {
         items.add(item);
     }
+
 
     public void removeItem(Item item) {
         items.remove(item);
     }
 
-    public void addExit(String direction, Room room) {
-        exits.put(direction, room);
-    }
-
-    public Room getExit(String direction) {
-        return exits.get(direction);
-    }
-
-
-    public List<Item> getItems() {
-        return items;
-    }
 
     public void addCharacter(Character character) {
         characters.add(character);
@@ -76,9 +61,19 @@ public class Room {
         return characters;
     }
 
+
+    public void addExit(String direction, Room room) {
+        exits.put(direction, room);
+    }
+
+
+    public Room getExit(String direction) {
+        return exits.get(direction);
+    }
+
+
     public String getName() {
         return name;
     }
 }
-
 

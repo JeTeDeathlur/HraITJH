@@ -15,8 +15,9 @@ public class Character {
         return description;
     }
 
+
     public void talk() {
-        System.out.println(name + " říká: 'Ahoj, co pro tebe mohu udělat?'");
+        System.out.println(name + " říká: Ahoj, co tě přivádí?");
     }
 }
 

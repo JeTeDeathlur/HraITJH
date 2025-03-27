@@ -19,15 +19,18 @@ public class Item {
 
     public void use(Player player) {
         if (name.equals("Klíč")) {
-
-            System.out.println("Použil jsi klíč k odemknutí místnosti.");
-
+            if (player.getCurrentRoom().getName().equals("Hlavní cela")) {
+                player.moveTo(player.getCurrentRoom().getExit("Hlavní chodba"));
+                System.out.println("Odemkl jsi dveře od hlavní cely a jsi na chodbách. Kam chceš jít teď?");
+            } else {
+                System.out.println("Tento klíč nepasuje do žádných dveří v této místnosti.");
+            }
         } else if (name.equals("Láhev s jedem")) {
-
             System.out.println("Použil jsi láhev s jedem na stráže.");
         }
     }
 }
+
 
 
 
