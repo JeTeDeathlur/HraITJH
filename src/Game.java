@@ -34,6 +34,14 @@ public class Game {
 
 
         System.out.println("Vítej ve hře 'Útěk z vězení'.");
+        System.out.println("Vítej ve hře 'Útěk z vězení'.");
+        System.out.println("Zde je seznam příkazů, které můžeš použít:");
+        System.out.println("- 'prohledej místnost' - Prozkoumej místnost.");
+        System.out.println("- 'vezmi <předmět>' - Sebrat předmět.");
+        System.out.println("- 'jdi <směr>' - Přejít do jiné místnosti.");
+        System.out.println("- 'mluv <postava>' - Mluvit s postavou.");
+        System.out.println("- 'použij <předmět>' - Použít předmět z inventáře.");
+        System.out.println("- 'konec' - Ukončit hru.");
         System.out.println("Co chceš dělat?");
 
         while (gameRunning) {
@@ -57,13 +65,25 @@ public class Game {
                 }
                 break;
             case "vezmi":
-                player.takeItem(argument);
+                if (argument.isEmpty()) {
+                    System.out.println("Musíš specifikovat, co chceš vzít.");
+                } else {
+                    player.takeItem(argument);
+                }
                 break;
             case "jdi":
-                player.moveTo(player.getCurrentRoom().getExit(argument));
+                if (argument.isEmpty()) {
+                    System.out.println("Musíš specifikovat směr.");
+                } else {
+                    player.moveTo(player.getCurrentRoom().getExit(argument));
+                }
                 break;
             case "mluv":
-                player.talkToCharacter(argument);
+                if (argument.isEmpty()) {
+                    System.out.println("Musíš specifikovat, s kým chceš mluvit.");
+                } else {
+                    player.talkToCharacter(argument);
+                }
                 break;
             case "konec":
                 gameRunning = false;
