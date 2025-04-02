@@ -1,6 +1,5 @@
 import java.util.*;
 
-
 public class Room {
     private String name;
     private String description;
@@ -15,18 +14,28 @@ public class Room {
         this.exits = new HashMap<>();
     }
 
-
     public void describe() {
         System.out.println(description);
         System.out.println("V této místnosti se nachází:");
-        for (Item item : items) {
-            System.out.println("- " + item.getName() + ": " + item.getDescription());
+        if (items.isEmpty()) {
+            System.out.println("Žádné předměty.");
+        } else {
+            for (Item item : items) {
+                System.out.println("- " + item.getName() + ": " + item.getDescription());
+            }
         }
-        for (Character character : characters) {
-            System.out.println("- Postava: " + character.getName() + ": " + character.getDescription());
+        if (characters.isEmpty()) {
+            System.out.println("Žádné postavy.");
+        } else {
+            for (Character character : characters) {
+                System.out.println("- Postava: " + character.getName() + ": " + character.getDescription());
+            }
         }
     }
 
+    public void addItem(Item item) {
+        items.add(item);
+    }
 
     public List<Item> getItems() {
         return items;
@@ -43,11 +52,6 @@ public class Room {
     }
 
 
-    public void addItem(Item item) {
-        items.add(item);
-    }
-
-
     public void removeItem(Item item) {
         items.remove(item);
     }
@@ -56,6 +60,7 @@ public class Room {
     public void addCharacter(Character character) {
         characters.add(character);
     }
+
 
     public List<Character> getCharacters() {
         return characters;
@@ -75,5 +80,8 @@ public class Room {
     public String getName() {
         return name;
     }
-}
 
+    public String getDescription() {
+        return description;
+    }
+}

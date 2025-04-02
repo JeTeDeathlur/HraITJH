@@ -34,7 +34,6 @@ public class Game {
 
 
         System.out.println("Vítej ve hře 'Útěk z vězení'.");
-        System.out.println("Vítej ve hře 'Útěk z vězení'.");
         System.out.println("Zde je seznam příkazů, které můžeš použít:");
         System.out.println("- 'prohledej místnost' - Prozkoumej místnost.");
         System.out.println("- 'vezmi <předmět>' - Sebrat předmět.");
@@ -83,6 +82,14 @@ public class Game {
                     System.out.println("Musíš specifikovat, s kým chceš mluvit.");
                 } else {
                     player.talkToCharacter(argument);
+                }
+                break;
+            case "použij":
+                if (argument.isEmpty()) {
+                    System.out.println("Musíš specifikovat, co chceš použít.");
+                } else {
+                    UseCommand useCommand = new UseCommand(player, argument);
+                    useCommand.execute();
                 }
                 break;
             case "konec":

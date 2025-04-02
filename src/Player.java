@@ -42,7 +42,11 @@ public class Player {
         List<Character> characters = currentRoom.getCharacters();
         for (Character character : characters) {
             if (character.getName().equalsIgnoreCase(characterName)) {
-                System.out.println("Mluvíš s " + character.getName() + ": " + character.getDescription());
+                if (character.getName().equalsIgnoreCase("Strážce")) {
+                    System.out.println("Strážce: Jídlo už je hotové, mazej do jídelny!");
+                } else {
+                    System.out.println("Mluvíš s " + character.getName() + ": " + character.getDescription());
+                }
                 return;
             }
         }

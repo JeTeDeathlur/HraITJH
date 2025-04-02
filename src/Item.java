@@ -20,7 +20,7 @@ public class Item {
     public void use(Player player) {
         if (name.equals("Klíč")) {
             if (player.getCurrentRoom().getName().equals("Hlavní cela")) {
-                player.moveTo(player.getCurrentRoom().getExit("Hlavní chodba"));
+                player.moveTo(player.getCurrentRoom().getExit("Temné chodby"));
                 System.out.println("Odemkl jsi dveře od hlavní cely a jsi na chodbách. Kam chceš jít teď?");
             } else {
                 System.out.println("Tento klíč nepasuje do žádných dveří v této místnosti.");
@@ -30,7 +30,6 @@ public class Item {
         }
     }
 }
-
 
 
 

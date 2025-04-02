@@ -10,10 +10,11 @@ public class GoCommand implements Command {
     @Override
     public void execute() {
         Room nextRoom = player.getCurrentRoom().getExit(direction);
+
         if (nextRoom != null) {
             player.moveTo(nextRoom);
         } else {
-            System.out.println("Tímto směrem nelze jít.");
+            System.out.println("Tato místnost neexistuje.");
         }
     }
 }
