@@ -20,8 +20,11 @@ class Game {
                 String[] parts = line.split(",");
                 Room room = new Room(parts[0]);
                 rooms.put(parts[0], room);
-                if (!parts[1].equals("-")) {
-                    rooms.get(parts[0]).addExit("dále", rooms.getOrDefault(parts[1], new Room(parts[1])));
+
+
+                if (parts.length > 1 && !parts[1].equals("-")) {
+                    Room exitRoom = rooms.getOrDefault(parts[1], new Room(parts[1]));
+                    room.addExit("dále", exitRoom);
                 }
             }
         } catch (IOException e) {
@@ -74,15 +77,23 @@ class Game {
 
     public void start() {
         System.out.println("Vítejte ve hře Útěk z vězení!");
-        System.out.println("Nacházíte se v: " + currentRoom.name);
+        System.out.println("Dostupné příkazy:");
+        System.out.println("  - jdi [místnost] : Přejděte do jiné místnosti");
+        System.out.println("  - prohledej : Prohledejte místnost");
+        System.out.println("  - vezmi [předmět] : Vezměte předmět z místnosti");
+        System.out.println("  - mluv [postava] : Mluvte s postavou");
+        System.out.println("  - použij [předmět] : Použijte předmět");
+        System.out.println("  - ukonci : Ukončete hru");
 
+        System.out.println("Nacházíte se v: " + currentRoom.name);
         Scanner scanner = new Scanner(System.in);
         CommandProcessor commandProcessor = new CommandProcessor();
 
         while (true) {
             System.out.print("> ");
             String input = scanner.nextLine();
-            if (input.equals("ukonci")) break;
+            if (input.equals("ukonci"))break;
+
             commandProcessor.processCommand(this, input);
         }
 
