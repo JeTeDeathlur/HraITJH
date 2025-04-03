@@ -1,103 +1,91 @@
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
+
+class Game {
+    private Map<String, Room> rooms = new HashMap<>();
+    private Room currentRoom;
+    private Inventory inventory = new Inventory();
+
+    public Game() {
+        loadRooms();
+        loadCharacters();
+        loadItems();
+        currentRoom = rooms.get("Hlavní cela");
+    }
+
+    private void loadRooms() {
+        try (BufferedReader br = new BufferedReader(new FileReader("src/rooms.csv"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(",");
+                Room room = new Room(parts[0]);
+                rooms.put(parts[0], room);
+                if (!parts[1].equals("-")) {
+                    rooms.get(parts[0]).addExit("dále", rooms.getOrDefault(parts[1], new Room(parts[1])));
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadCharacters() {
+        try (BufferedReader br = new BufferedReader(new FileReader("src/characters.csv"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(",");
+                Character character = new Character(parts[0], parts[1]);
+                if (rooms.containsKey(parts[2])) {
+                    rooms.get(parts[2]).addCharacter(character);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadItems() {
+        try (BufferedReader br = new BufferedReader(new FileReader("src/items.csv"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(",");
+                Item item = new Item(parts[0]);
+                if (rooms.containsKey(parts[1])) {
+                    rooms.get(parts[1]).addItem(item);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
-public class Game {
-    private Scanner scanner;
-    private Player player;
-    private boolean gameRunning;
+    public Inventory getInventory() {
+        return inventory;
+    }
 
-    public Game(Player player) {
-        scanner = new Scanner(System.in);
-        gameRunning = true;
+    public Room getCurrentRoom() {
+        return currentRoom;
+    }
+
+    public void setCurrentRoom(Room room) {
+        this.currentRoom = room;
     }
 
     public void start() {
+        System.out.println("Vítejte ve hře Útěk z vězení!");
+        System.out.println("Nacházíte se v: " + currentRoom.name);
 
-        Room mainCell = new Room("Hlavní cela", "Jsi v hlavní cele vězení. Všude je tma a zatuchlý vzduch.");
-        Room darkCorridor = new Room("Temné chodby", "Chodby vězení jsou úzké a temné.");
+        Scanner scanner = new Scanner(System.in);
+        CommandProcessor commandProcessor = new CommandProcessor();
 
-
-        Item key = new Item("Klíč", "Klíč, který otevírá zámek v hlavní cele.");
-
-
-        mainCell.addItem(key);
-
-        Character guard = new Character("Strážce", "Strážce vězení, který patroluje chodby.");
-
-
-        mainCell.addCharacter(guard);
-
-        mainCell.addExit("jdi temné chodby", darkCorridor);
-
-
-        player = new Player(mainCell);
-
-
-        System.out.println("Vítej ve hře 'Útěk z vězení'.");
-        System.out.println("Zde je seznam příkazů, které můžeš použít:");
-        System.out.println("- 'prohledej místnost' - Prozkoumej místnost.");
-        System.out.println("- 'vezmi <předmět>' - Sebrat předmět.");
-        System.out.println("- 'jdi <směr>' - Přejít do jiné místnosti.");
-        System.out.println("- 'mluv <postava>' - Mluvit s postavou.");
-        System.out.println("- 'použij <předmět>' - Použít předmět z inventáře.");
-        System.out.println("- 'konec' - Ukončit hru.");
-        System.out.println("Co chceš dělat?");
-
-        while (gameRunning) {
+        while (true) {
             System.out.print("> ");
-            String command = scanner.nextLine().toLowerCase();
-            processCommand(command);
+            String input = scanner.nextLine();
+            if (input.equals("ukonci")) break;
+            commandProcessor.processCommand(this, input);
         }
-    }
 
-    private void processCommand(String command) {
-        String[] commandParts = command.split(" ", 2);
-        String action = commandParts[0];
-        String argument = (commandParts.length > 1) ? commandParts[1] : "";
-
-        switch (action) {
-            case "prohledej":
-                if (argument.equalsIgnoreCase("místnost")) {
-                    player.getCurrentRoom().describe();
-                } else {
-                    System.out.println("Neznámý příkaz.");
-                }
-                break;
-            case "vezmi":
-                if (argument.isEmpty()) {
-                    System.out.println("Musíš specifikovat, co chceš vzít.");
-                } else {
-                    player.takeItem(argument);
-                }
-                break;
-            case "jdi":
-                if (argument.isEmpty()) {
-                    System.out.println("Musíš specifikovat směr.");
-                } else {
-                    player.moveTo(player.getCurrentRoom().getExit(argument));
-                }
-                break;
-            case "mluv":
-                if (argument.isEmpty()) {
-                    System.out.println("Musíš specifikovat, s kým chceš mluvit.");
-                } else {
-                    player.talkToCharacter(argument);
-                }
-                break;
-            case "použij":
-                if (argument.isEmpty()) {
-                    System.out.println("Musíš specifikovat, co chceš použít.");
-                } else {
-                    UseCommand useCommand = new UseCommand(player, argument);
-                    useCommand.execute();
-                }
-                break;
-            case "konec":
-                gameRunning = false;
-                System.out.println("Hra byla ukončena.");
-                break;
-            default:
-                System.out.println("Neznámý příkaz.");
-        }
+        scanner.close();
     }
 }

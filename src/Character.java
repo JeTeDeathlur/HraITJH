@@ -1,23 +1,9 @@
-public class Character {
-    private String name;
-    private String description;
+class Character {
+    String name;
+    String role;
 
-    public Character(String name, String description) {
+    public Character(String name, String role) {
         this.name = name;
-        this.description = description;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-
-    public void talk() {
-        System.out.println(name + " říká: Ahoj, co tě přivádí?");
+        this.role = role;
     }
 }
-

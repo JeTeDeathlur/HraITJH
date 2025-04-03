@@ -1,16 +1,19 @@
 import java.util.List;
 
-public class TalkCommand implements Command {
-    private Player player;
-    private String characterName;
-
-    public TalkCommand(Player player, String characterName) {
-        this.player = player;
-        this.characterName = characterName;
-    }
-
+class TalkCommand extends Command {
     @Override
-    public void execute() {
-        player.talkToCharacter(characterName);
+    public void execute(Game game, String[] args) {
+        if (args.length < 2) {
+            System.out.println("S kým chcete mluvit?");
+            return;
+        }
+        String characterName = args[1];
+        for (Character character : game.getCurrentRoom().characters) {
+            if (character.name.equalsIgnoreCase(characterName)) {
+                System.out.println("Mluvíte s " + character.name);
+                return;
+            }
+        }
+        System.out.println("Tato postava zde není.");
     }
 }

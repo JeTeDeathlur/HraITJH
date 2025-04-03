@@ -1,30 +1,25 @@
-public class TakeCommand implements Command {
-    private Player player;
-    private String itemName;
-
-    public TakeCommand(Player player, String itemName) {
-        this.player = player;
-        this.itemName = itemName;
-    }
-
+class TakeCommand extends Command {
     @Override
-    public void execute() {
-        Room currentRoom = player.getCurrentRoom();
-
-        Item item = null;
-        for (Item i : currentRoom.getItems()) {
-            if (i.getName().equalsIgnoreCase(itemName)) {
-                item = i;
+    public void execute(Game game, String[] args) {
+        if (args.length < 2) {
+            System.out.println("Co chcete vzít?");
+            return;
+        }
+        String itemName = args[1];
+        Room currentRoom = game.getCurrentRoom();
+        Item itemToTake = null;
+        for (Item item : currentRoom.items) {
+            if (item.getName().equalsIgnoreCase(itemName)) {
+                itemToTake = item;
                 break;
             }
         }
-
-        if (item != null) {
-            player.getInventory().addItem(item);
-            currentRoom.removeItem(item);
-            System.out.println("Sebral jsi " + itemName);
+        if (itemToTake != null) {
+            game.getInventory().addItem(itemToTake);
+            currentRoom.items.remove(itemToTake);
+            System.out.println("Sebrali jste: " + itemName);
         } else {
-            System.out.println("Tento předmět není v místnosti.");
+            System.out.println("Tento předmět zde není.");
         }
     }
 }

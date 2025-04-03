@@ -1,20 +1,19 @@
-public class GoCommand implements Command {
-    private Player player;
-    private String direction;
-
-    public GoCommand(Player player, String direction) {
-        this.player = player;
-        this.direction = direction;
-    }
-
+import java.io.*;
+import java.util.*;
+class GoCommand extends Command {
     @Override
-    public void execute() {
-        Room nextRoom = player.getCurrentRoom().getExit(direction);
-
+    public void execute(Game game, String[] args) {
+        if (args.length < 2) {
+            System.out.println("Kam chcete jít?");
+            return;
+        }
+        String destination = args[1];
+        Room nextRoom = game.getCurrentRoom().exits.get(destination);
         if (nextRoom != null) {
-            player.moveTo(nextRoom);
+            game.setCurrentRoom(nextRoom);
+            System.out.println("Přesunuli jste se do: " + nextRoom.name);
         } else {
-            System.out.println("Tato místnost neexistuje.");
+            System.out.println("Tam se nemůžete dostat!");
         }
     }
 }
