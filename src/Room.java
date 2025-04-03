@@ -19,6 +19,10 @@ class Room {
         items.add(item);
     }
 
+    public String getName() {
+        return name;
+    }
+
     public void addCharacter(Character character) {
         characters.add(character);
     }

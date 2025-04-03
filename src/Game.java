@@ -5,6 +5,7 @@ class Game {
     private Map<String, Room> rooms = new HashMap<>();
     private Room currentRoom;
     private Inventory inventory = new Inventory();
+    private boolean usedKey = false;
 
     public Game() {
         loadRooms();
@@ -20,8 +21,6 @@ class Game {
                 String[] parts = line.split(",");
                 Room room = new Room(parts[0]);
                 rooms.put(parts[0], room);
-
-
                 if (parts.length > 1 && !parts[1].equals("-")) {
                     Room exitRoom = rooms.getOrDefault(parts[1], new Room(parts[1]));
                     room.addExit("dále", exitRoom);
@@ -62,6 +61,9 @@ class Game {
         }
     }
 
+    public Room getRoom(String name) {
+        return rooms.get(name);
+    }
 
     public Inventory getInventory() {
         return inventory;
@@ -73,6 +75,14 @@ class Game {
 
     public void setCurrentRoom(Room room) {
         this.currentRoom = room;
+    }
+
+    public void setUsedKey(boolean usedKey) {
+        this.usedKey = usedKey;
+    }
+
+    public boolean hasUsedKey() {
+        return usedKey;
     }
 
     public void start() {
@@ -92,7 +102,7 @@ class Game {
         while (true) {
             System.out.print("> ");
             String input = scanner.nextLine();
-            if (input.equals("ukonci"))break;
+            if (input.equals("ukonci")) break;
 
             commandProcessor.processCommand(this, input);
         }

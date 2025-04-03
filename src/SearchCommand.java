@@ -8,5 +8,10 @@ class SearchCommand extends Command {
         for (Character character : game.getCurrentRoom().characters) {
             System.out.println("- " + character.name);
         }
+
+        if (game.getCurrentRoom().name.equalsIgnoreCase("Temné chodby")) {
+            System.out.println("Našli jste skříň. Prohledali jste ji a našli mapu!");
+            System.out.println("Mapa: \nHlavní cela -> Temné chodby -> Jídelna -> Kuchyně -> Kancelář vrátného");
+        }
     }
 }

@@ -8,22 +8,12 @@ class TalkCommand extends Command {
             return;
         }
         String characterName = args[1];
-
-
         for (Character character : game.getCurrentRoom().characters) {
             if (character.name.equalsIgnoreCase(characterName)) {
-                System.out.println(character.name + ": ");
-
-
-                if (characterName.equals("Strážce")) {
-                    if (!game.getInventory().hasItem("Klíč od hlavní cely")) {
-                        System.out.println("Běž do jídelny, je čas oběda. Musíš však projít přes temné chodby a odemknout tuto celu.");
-                    } else {
-                        System.out.println("Strážce: Nyní můžeš jít do Temných chodeb, protože máš klíč.");
-                    }
-                }
-                else {
-                    System.out.println("Mluvíte s " + character.name);
+                if (character.name.equals("Strážce")) {
+                    System.out.println("Strážce: Běž do jídelny, je čas oběda!");
+                } else if (character.name.equals("Vrátný")) {
+                    System.out.println("Vrátný: Chceš klíč k útěku? Můžeš si ho koupit!");
                 }
                 return;
             }
