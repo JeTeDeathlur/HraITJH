@@ -1,9 +1,18 @@
 class Character {
-    String name;
-    String role;
+    private String name;
+    private String dialogue;
 
-    public Character(String name, String role) {
+    public Character(String name, String dialogue) {
         this.name = name;
-        this.role = role;
+        this.dialogue = dialogue;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDialogue() {
+        return dialogue;
     }
 }
+

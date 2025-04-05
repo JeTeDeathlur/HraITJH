@@ -1,6 +1,6 @@
 
 class Item {
-    String name;
+    private String name;
 
     public Item(String name) {
         this.name = name;
@@ -10,4 +10,3 @@ class Item {
         return name;
     }
 }
-

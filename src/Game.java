@@ -6,6 +6,8 @@ class Game {
     private Room currentRoom;
     private Inventory inventory = new Inventory();
     private boolean usedKey = false;
+    private boolean killedCook = false;
+    private boolean hasMoney = false;
 
     public Game() {
         loadRooms();
@@ -61,10 +63,6 @@ class Game {
         }
     }
 
-    public Room getRoom(String name) {
-        return rooms.get(name);
-    }
-
     public Inventory getInventory() {
         return inventory;
     }
@@ -83,6 +81,22 @@ class Game {
 
     public boolean hasUsedKey() {
         return usedKey;
+    }
+
+    public boolean hasKilledCook() {
+        return killedCook;
+    }
+
+    public void setKilledCook(boolean killedCook) {
+        this.killedCook = killedCook;
+    }
+
+    public boolean hasMoney() {
+        return hasMoney;
+    }
+
+    public void setHasMoney(boolean hasMoney) {
+        this.hasMoney = hasMoney;
     }
 
     public void start() {

@@ -7,38 +7,27 @@ class GoCommand extends Command {
             System.out.println("Kam chcete jít?");
             return;
         }
-
         String destination = args[1];
-        Room nextRoom = game.getCurrentRoom().exits.get(destination);
+        Room nextRoom = game.getCurrentRoom().getExit(destination);
 
-
-        if (destination.equalsIgnoreCase("Temné chodby")) {
-            if (!game.hasUsedKey()) {
-                System.out.println("Nemůžete jít do Temných chodeb bez odemčení hlavní cely!");
-                return;
-            }
-            if (nextRoom == null) {
-                nextRoom = game.getRoom("Temné chodby");
-            }
+        if (destination.equalsIgnoreCase("Temné chodby") && !game.hasUsedKey()) {
+            System.out.println("Nemůžete jít do Temných chodeb bez odemčení hlavní cely!");
+            return;
         }
 
-        if (destination.equalsIgnoreCase("Jídelna")) {
-            if (nextRoom == null) {
-                nextRoom = game.getRoom("Jídelna");
-            }
+        if (destination.equalsIgnoreCase("Kuchyně") && !game.hasKilledCook()) {
+            System.out.println("Nemůžete vstoupit do kuchyně, dokud kuchaře neodstraníte!");
+            return;
         }
 
-
-        if (destination.equalsIgnoreCase("Kuchyně")) {
-            if (nextRoom == null) {
-                nextRoom = game.getRoom("Kuchyně");
-            }
+        if (destination.equalsIgnoreCase("Kancelář vrátného") && !game.hasMoney()) {
+            System.out.println("Nemáte peníze na podplacení vrátného. Hra končí.");
+            System.exit(0);
         }
 
         if (nextRoom != null) {
             game.setCurrentRoom(nextRoom);
             System.out.println("Nyní se nacházíte v " + nextRoom.getName());
-
 
             if (destination.equalsIgnoreCase("Jídelna")) {
                 System.out.println("Kuchař: Co tu děláš?! Okamžitě vypadni!");

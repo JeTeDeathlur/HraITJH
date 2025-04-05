@@ -11,19 +11,49 @@ class Room {
         this.name = name;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public void addExit(String direction, Room room) {
-        exits.put(direction, room);
+        exits.put(room.getName(), room);
+    }
+
+    public Room getExit(String destination) {
+        return exits.get(destination);
     }
 
     public void addItem(Item item) {
         items.add(item);
     }
 
-    public String getName() {
-        return name;
+    public void removeItem(Item item) {
+        items.remove(item);
+    }
+
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public Item getItem(String name) {
+        for (Item item : items) {
+            if (item.getName().equalsIgnoreCase(name)) {
+                return item;
+            }
+        }
+        return null;
     }
 
     public void addCharacter(Character character) {
         characters.add(character);
+    }
+
+    public Character getCharacter(String name) {
+        for (Character c : characters) {
+            if (c.getName().equalsIgnoreCase(name)) {
+                return c;
+            }
+        }
+        return null;
     }
 }

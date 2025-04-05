@@ -8,14 +8,17 @@ class CommandProcessor {
         commands.put("prohledej", new SearchCommand());
         commands.put("vezmi", new TakeCommand());
         commands.put("mluv", new TalkCommand());
-        commands.put("použij", new UseCommand());
+        commands.put("pouzij", new UseCommand());
     }
 
     public void processCommand(Game game, String input) {
         String[] parts = input.split(" ", 2);
-        Command command = commands.get(parts[0]);
+        String commandName = parts[0];
+        String[] args = input.split(" ");
+        Command command = commands.get(commandName);
+
         if (command != null) {
-            command.execute(game, parts);
+            command.execute(game, args);
         } else {
             System.out.println("Neznámý příkaz.");
         }

@@ -6,18 +6,15 @@ class TakeCommand extends Command {
             return;
         }
         String itemName = args[1];
-        Room currentRoom = game.getCurrentRoom();
-        Item itemToTake = null;
-        for (Item item : currentRoom.items) {
-            if (item.getName().equalsIgnoreCase(itemName)) {
-                itemToTake = item;
-                break;
-            }
-        }
-        if (itemToTake != null) {
-            game.getInventory().addItem(itemToTake);
-            currentRoom.items.remove(itemToTake);
+        Room room = game.getCurrentRoom();
+        Item item = room.getItem(itemName);
+        if (item != null) {
+            game.getInventory().addItem(item);
+            room.removeItem(item);
             System.out.println("Sebrali jste: " + itemName);
+            if (itemName.equalsIgnoreCase("Peněženka")) {
+                game.setHasMoney(true);
+            }
         } else {
             System.out.println("Tento předmět zde není.");
         }

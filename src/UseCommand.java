@@ -6,21 +6,24 @@ class UseCommand extends Command {
             return;
         }
         String itemName = args[1];
-        if (game.getInventory().hasItem(itemName)) {
-            if (itemName.equalsIgnoreCase("Klíč od hlavní cely")) {
+        if (!game.getInventory().hasItem(itemName)) {
+            System.out.println("Tento předmět nemáte.");
+            return;
+        }
+
+        switch (itemName.toLowerCase()) {
+            case "klíč":
+            case "klíč od hlavní cely":
                 System.out.println("Odemkli jste hlavní celu!");
                 game.setUsedKey(true);
-            } else if (itemName.equalsIgnoreCase("Lahvička s jedem")) {
-                System.out.println("Použili jste jed! Kuchař je mrtvý.");
-                game.getInventory().addItem(new Item("peníze"));
-            } else if (itemName.equalsIgnoreCase("peníze") && game.getCurrentRoom().name.equalsIgnoreCase("Kancelář vrátného")) {
-                System.out.println("Koupili jste klíč k útěku! Jste svobodní!");
-                System.exit(0);
-            } else {
-                System.out.println("Použili jste: " + itemName);
-            }
-        } else {
-            System.out.println("Tento předmět nemáte.");
+                break;
+            case "jed":
+                System.out.println("Otrávil jste kuchaře! Můžete ho teď okrást.");
+                game.setKilledCook(true);
+                game.getCurrentRoom().addItem(new Item("Peněženka"));
+                break;
+            default:
+                System.out.println("Předmět nelze použít.");
         }
     }
 }

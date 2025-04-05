@@ -8,7 +8,12 @@ class Inventory {
         items.add(item);
     }
 
-    public boolean hasItem(String itemName) {
-        return items.stream().anyMatch(item -> item.getName().equalsIgnoreCase(itemName));
+    public boolean hasItem(String name) {
+        for (Item item : items) {
+            if (item.getName().equalsIgnoreCase(name)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
