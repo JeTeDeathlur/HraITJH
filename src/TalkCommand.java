@@ -9,10 +9,10 @@ class TalkCommand extends Command {
         }
         String characterName = args[1];
         for (Character character : game.getCurrentRoom().characters) {
-            if (character.name.equalsIgnoreCase(characterName)) {
-                if (character.name.equals("Strážce")) {
+            if (character.getName().equalsIgnoreCase(characterName)) {
+                if (character.getName().equals("Strážce")) {
                     System.out.println("Strážce: Běž do jídelny, je čas oběda!");
-                } else if (character.name.equals("Vrátný")) {
+                } else if (character.getName().equals("Vrátný")) {
                     System.out.println("Vrátný: Chceš klíč k útěku? Můžeš si ho koupit!");
                 }
                 return;

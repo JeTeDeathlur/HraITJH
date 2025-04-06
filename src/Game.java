@@ -38,9 +38,19 @@ class Game {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(",");
-                Character character = new Character(parts[0], parts[1]);
-                if (rooms.containsKey(parts[2])) {
-                    rooms.get(parts[2]).addCharacter(character);
+                if (parts.length < 3) continue;
+
+                String name = parts[0];
+                String dialog = parts[1];
+                String roomName = parts[2];
+
+                Character character = new Character(name, dialog);
+                Room room = rooms.get(roomName);
+
+                if (room != null) {
+                    room.addCharacter(character);
+                } else {
+                    System.out.println("Místnost '" + roomName + "' nenalezena pro postavu " + name);
                 }
             }
         } catch (IOException e) {

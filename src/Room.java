@@ -48,6 +48,11 @@ class Room {
         characters.add(character);
     }
 
+    public List<Character> getCharacters() {
+        return characters;
+    }
+
+
     public Character getCharacter(String name) {
         for (Character c : characters) {
             if (c.getName().equalsIgnoreCase(name)) {
