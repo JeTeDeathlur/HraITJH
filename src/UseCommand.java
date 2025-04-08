@@ -40,7 +40,7 @@ class UseCommand extends Command {
                 currentRoom.addItem(new Item("Peněženka"));
 
             } else if (game.hasKilledCook()) {
-                System.out.println("Kuchař je už mrtvý.");
+                System.out.println("Otrávil jsi kuchaře, je mrtvý ale z kapsy mu vypadla peněženka.");
                 game.getCurrentRoom().addItem(new Item("Peněženka"));
             } else {
                 System.out.println("Nemůžete použít jed tady.");
@@ -51,7 +51,10 @@ class UseCommand extends Command {
 
         } else if (itemName.equalsIgnoreCase("Peněženka")) {
             if (currentRoom.getName().equalsIgnoreCase("Kancelář vrátného")) {
-                System.out.println("Podplatil jsi vrátného a utekl z vězení! Gratulujeme!");
+                System.out.println("Vrátný si všimne peněženky v tvé ruce a široce se usměje.");
+                System.out.println("„Tak tohle je ta pravá... No dobrá. Svoboda za svinstvo.“");
+                System.out.println("Plácnete si s vrátným. Dveře se otevírají.");
+                System.out.println("🎉 Vyhrál jsi! Úspěšně jsi unikl z pekla jménem věznice. 🎉");
                 System.exit(0);
             } else {
                 System.out.println("Tady peníze nepomohou.");
