@@ -8,6 +8,10 @@ class Inventory {
         items.add(item);
     }
 
+    public void removeItem(String name) {
+        items.removeIf(item -> item.getName().equalsIgnoreCase(name));
+    }
+
     public boolean hasItem(String name) {
         for (Item item : items) {
             if (item.getName().equalsIgnoreCase(name)) {
