@@ -1,14 +1,21 @@
 import java.util.*;
-
+/**
+ * Příkaz pro použití předmětu.
+ */
 class UseCommand extends Command {
+    /**
+     * Pokusí se použít zadaný předmět z inventáře.
+     * @param game instance hry
+     * @param parameters název příkazu a předmětu
+     */
     @Override
-    public void execute(Game game, String[] args) {
-        if (args.length < 2) {
+    public void execute(Game game, String[] parameters) {
+        if (parameters.length < 2) {
             System.out.println("Co chcete použít?");
             return;
         }
 
-        String itemName = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
+        String itemName = String.join(" ", Arrays.copyOfRange(parameters, 1, parameters.length));
         if (!game.getInventory().hasItem(itemName)) {
             System.out.println("Tento předmět nemáte.");
             return;

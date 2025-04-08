@@ -1,7 +1,10 @@
 import java.io.*;
 import java.util.*;
 
-
+/**
+ * Třída Game představuje hlavní logiku hry, načítání místností, postav a předmětů
+ * a zpracovává celkový herní tok.
+ */
 class Game {
     private Map<String, Room> rooms = new HashMap<>();
     private Room currentRoom;
@@ -9,14 +12,18 @@ class Game {
     private boolean usedKey = false;
     private boolean killedCook = false;
     private boolean hasMoney = false;
-
+    /**
+     * Konstruktor třídy Game, načítá místnosti, postavy a předměty.
+     */
     public Game() {
         loadRooms();
         loadCharacters();
         loadItems();
         currentRoom = rooms.get("Hlavní cela");
     }
-
+    /**
+     * Načítá místnosti ze souboru rooms.csv
+     */
     private void loadRooms() {
         try (BufferedReader br = new BufferedReader(new FileReader("src/rooms.csv"))) {
             String line;
@@ -33,7 +40,9 @@ class Game {
             e.printStackTrace();
         }
     }
-
+    /**
+     * Načítá postavy ze souboru characters.csv
+     */
     private void loadCharacters() {
         try (BufferedReader br = new BufferedReader(new FileReader("src/characters.csv"))) {
             String line;
@@ -49,7 +58,9 @@ class Game {
             e.printStackTrace();
         }
     }
-
+    /**
+     * Načítá předměty ze souboru items.csv
+     */
     private void loadItems() {
         try (BufferedReader br = new BufferedReader(new FileReader("src/items.csv"))) {
             String line;
@@ -101,7 +112,9 @@ class Game {
     public void setHasMoney(boolean hasMoney) {
         this.hasMoney = hasMoney;
     }
-
+    /**
+     * Spouští hlavní smyčku hry a zpracovává vstupy uživatele.
+     */
     public void start() {
         System.out.println("Vítejte ve hře Útěk z vězení!");
         System.out.println("Dostupné příkazy:");

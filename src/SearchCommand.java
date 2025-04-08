@@ -1,6 +1,14 @@
+/**
+ * Příkaz pro hledání předmětů a postav v aktuální místnosti.
+ */
 public class SearchCommand extends Command {
+    /**
+     * Provede prohledání aktuální místnosti a vypíše dostupné předměty a postavy.
+     * @param game instance hry
+     * @param parameters parametry příkazu (nevyužívají se)
+     */
     @Override
-    public void execute(Game game, String[] args) {
+    public void execute(Game game, String[] parameters) {
         Room room = game.getCurrentRoom();
         System.out.println("V místnosti se nachází:");
 

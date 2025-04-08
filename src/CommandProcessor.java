@@ -1,8 +1,12 @@
 import java.util.*;
-
+/**
+ * Zpracovává a provádí příkazy od uživatele.
+ */
 class CommandProcessor {
     private Map<String, Command> commands = new HashMap<>();
-
+    /**
+     * Inicializuje podporované příkazy.
+     */
     public CommandProcessor() {
         commands.put("jdi", new GoCommand());
         commands.put("prohledej", new SearchCommand());
@@ -11,6 +15,11 @@ class CommandProcessor {
         commands.put("použij", new UseCommand());
         commands.put("pouzij", new UseCommand());
     }
+    /**
+     * Zpracuje zadaný vstup od uživatele a provede odpovídající příkaz.
+     * @param game instance hry
+     * @param input vstupní řetězec
+     */
 
     public void processCommand(Game game, String input) {
         String[] parts = input.trim().split(" ", 2);

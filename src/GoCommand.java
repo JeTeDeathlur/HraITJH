@@ -1,6 +1,13 @@
 import java.util.*;
-
+/**
+ * Příkaz pro přechod do jiné místnosti
+ */
 class GoCommand extends Command {
+    /**
+     * Provádí příkaz jdi do místnosti, pokud je dostupná.
+     * @param game aktuální instance hry
+     * @param args vstupní argumenty (např. "jdi Sklad")
+     */
     @Override
     public void execute(Game game, String[] args) {
         if (args.length < 2) {

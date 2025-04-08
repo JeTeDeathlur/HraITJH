@@ -1,11 +1,16 @@
 import java.util.*;
-
+/**
+ * Reprezentuje místnost ve hře, která může obsahovat předměty a postavy.
+ */
 public class Room {
     private String name;
     private Map<String, Room> exits = new HashMap<>();  // Mapa výstupů z místnosti
     private List<Item> items = new ArrayList<>();
     private List<Character> characters = new ArrayList<>();
-
+    /**
+     * Vytvoří místnost se zadaným názvem.
+     * @param name název místnosti
+     */
     public Room(String name) {
         this.name = name;
     }
@@ -13,11 +18,17 @@ public class Room {
     public String getName() {
         return name;
     }
-
+    /**
+     * Vrátí seznam položek v místnosti.
+     * @return seznam položek
+     */
     public List<Item> getItems() {
         return items;
     }
-
+    /**
+     * Přidá položku do místnosti.
+     * @param item položka k přidání
+     */
     public void addItem(Item item) {
         items.add(item);
     }
@@ -45,7 +56,10 @@ public class Room {
         return false;
     }
 
-
+    /**
+     * Vrátí seznam postav v místnosti.
+     * @return seznam postav
+     */
     public List<Character> getCharacters() {
         return characters;
     }

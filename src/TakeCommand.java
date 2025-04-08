@@ -1,5 +1,13 @@
 import java.util.*;
+/**
+ * Příkaz pro sebrání předmětu z aktuální místnosti
+ */
 class TakeCommand extends Command {
+    /**
+     * Provádí akci sebrání předmětu a přidání do inventáře.
+     * @param game instance hry
+     * @param args vstupní argumenty (např. "vezmi Mapa")
+     */
     @Override
     public void execute(Game game, String[] args) {
         if (args.length < 2) {

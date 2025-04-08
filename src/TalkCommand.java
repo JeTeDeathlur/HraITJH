@@ -1,12 +1,20 @@
+/**
+ * Příkaz pro komunikaci s postavou.
+ */
 class TalkCommand extends Command {
+    /**
+     * Spustí komunikaci s postavou.
+     * @param game instance hry
+     * @param paremeters název příkazu a jméno postavy
+     */
     @Override
-    public void execute(Game game, String[] args) {
-        if (args.length < 2) {
+    public void execute(Game game, String[] paremeters) {
+        if (paremeters.length < 2) {
             System.out.println("S kým chcete mluvit?");
             return;
         }
 
-        String characterName = args[1];
+        String characterName = paremeters[1];
         for (Character character : game.getCurrentRoom().getCharacters()) {
             if (character.getName().equalsIgnoreCase(characterName)) {
                 if (character.getName().equals("Strážce")) {
