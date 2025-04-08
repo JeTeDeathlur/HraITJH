@@ -1,7 +1,5 @@
 import java.util.*;
 
-import java.util.*;
-
 class Room {
     private String name;
     private Map<String, Room> exits = new HashMap<>();
@@ -44,3 +42,4 @@ class Room {
         characters.add(character);
     }
 }
+

@@ -1,5 +1,3 @@
-import java.util.List;
-
 class TalkCommand extends Command {
     @Override
     public void execute(Game game, String[] args) {

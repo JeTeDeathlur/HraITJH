@@ -1,8 +1,6 @@
 import java.io.*;
 import java.util.*;
 
-import java.io.*;
-import java.util.*;
 
 class Game {
     private Map<String, Room> rooms = new HashMap<>();
@@ -27,7 +25,7 @@ class Game {
                 Room room = rooms.computeIfAbsent(parts[0], Room::new);
                 if (parts.length > 1 && !parts[1].equals("-")) {
                     Room exitRoom = rooms.computeIfAbsent(parts[1], Room::new);
-                    room.addExit("dále", exitRoom);
+                    room.addExit(exitRoom.getName(), exitRoom);
                 }
                 rooms.put(parts[0], room);
             }
