@@ -8,7 +8,7 @@ class TalkCommand extends Command {
             return;
         }
         String characterName = args[1];
-        for (Character character : game.getCurrentRoom().characters) {
+        for (Character character : game.getCurrentRoom().getCharacters()) {
             if (character.getName().equalsIgnoreCase(characterName)) {
                 if (character.getName().equals("Strážce")) {
                     System.out.println("Strážce: Běž do jídelny, je čas oběda!");

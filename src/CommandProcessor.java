@@ -1,5 +1,7 @@
 import java.io.*;
 import java.util.*;
+import java.util.*;
+
 class CommandProcessor {
     private Map<String, Command> commands = new HashMap<>();
 
@@ -8,19 +10,21 @@ class CommandProcessor {
         commands.put("prohledej", new SearchCommand());
         commands.put("vezmi", new TakeCommand());
         commands.put("mluv", new TalkCommand());
+        commands.put("použij", new UseCommand());
         commands.put("pouzij", new UseCommand());
     }
 
     public void processCommand(Game game, String input) {
-        String[] parts = input.split(" ", 2);
-        String commandName = parts[0];
-        String[] args = input.split(" ");
-        Command command = commands.get(commandName);
+        String[] parts = input.trim().split(" ", 2);
+        String command = parts[0].toLowerCase();
+        String[] args = (parts.length > 1) ? new String[]{command, parts[1]} : new String[]{command};
 
-        if (command != null) {
-            command.execute(game, args);
+        Command cmd = commands.get(command);
+        if (cmd != null) {
+            cmd.execute(game, args);
         } else {
             System.out.println("Neznámý příkaz.");
         }
     }
 }
+

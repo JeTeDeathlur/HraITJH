@@ -1,6 +1,9 @@
 import java.io.*;
 import java.util.*;
 
+import java.io.*;
+import java.util.*;
+
 class Game {
     private Map<String, Room> rooms = new HashMap<>();
     private Room currentRoom;
@@ -21,12 +24,12 @@ class Game {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(",");
-                Room room = new Room(parts[0]);
-                rooms.put(parts[0], room);
+                Room room = rooms.computeIfAbsent(parts[0], Room::new);
                 if (parts.length > 1 && !parts[1].equals("-")) {
-                    Room exitRoom = rooms.getOrDefault(parts[1], new Room(parts[1]));
+                    Room exitRoom = rooms.computeIfAbsent(parts[1], Room::new);
                     room.addExit("dále", exitRoom);
                 }
+                rooms.put(parts[0], room);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -38,19 +41,10 @@ class Game {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(",");
-                if (parts.length < 3) continue;
-
-                String name = parts[0];
-                String dialog = parts[1];
-                String roomName = parts[2];
-
-                Character character = new Character(name, dialog);
-                Room room = rooms.get(roomName);
-
+                Character character = new Character(parts[0], parts[1]);
+                Room room = rooms.get(parts[2]);
                 if (room != null) {
                     room.addCharacter(character);
-                } else {
-                    System.out.println("Místnost '" + roomName + "' nenalezena pro postavu " + name);
                 }
             }
         } catch (IOException e) {
@@ -64,8 +58,9 @@ class Game {
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(",");
                 Item item = new Item(parts[0]);
-                if (rooms.containsKey(parts[1])) {
-                    rooms.get(parts[1]).addItem(item);
+                Room room = rooms.get(parts[1]);
+                if (room != null) {
+                    room.addItem(item);
                 }
             }
         } catch (IOException e) {
@@ -112,23 +107,23 @@ class Game {
     public void start() {
         System.out.println("Vítejte ve hře Útěk z vězení!");
         System.out.println("Dostupné příkazy:");
-        System.out.println("  - jdi [místnost] : Přejděte do jiné místnosti");
+        System.out.println("  - jdi <místnost> : Přejděte do jiné místnosti");
         System.out.println("  - prohledej : Prohledejte místnost");
-        System.out.println("  - vezmi [předmět] : Vezměte předmět z místnosti");
-        System.out.println("  - mluv [postava] : Mluvte s postavou");
-        System.out.println("  - použij [předmět] : Použijte předmět");
+        System.out.println("  - vezmi <předmět> : Vezměte předmět z místnosti");
+        System.out.println("  - mluv <postava> : Mluvte s postavou");
+        System.out.println("  - použij <předmět> : Použijte předmět");
         System.out.println("  - ukonci : Ukončete hru");
 
-        System.out.println("Nacházíte se v: " + currentRoom.name);
         Scanner scanner = new Scanner(System.in);
-        CommandProcessor commandProcessor = new CommandProcessor();
+        CommandProcessor processor = new CommandProcessor();
 
         while (true) {
+            System.out.println("\nNacházíte se v: " + currentRoom.getName());
             System.out.print("> ");
-            String input = scanner.nextLine();
-            if (input.equals("ukonci")) break;
+            String input = scanner.nextLine().trim();
+            if (input.equalsIgnoreCase("ukonci")) break;
 
-            commandProcessor.processCommand(this, input);
+            processor.processCommand(this, input);
         }
 
         scanner.close();

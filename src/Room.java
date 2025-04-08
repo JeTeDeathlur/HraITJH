@@ -1,11 +1,12 @@
-import java.io.*;
+import java.util.*;
+
 import java.util.*;
 
 class Room {
-    String name;
-    List<Item> items = new ArrayList<>();
-    List<Character> characters = new ArrayList<>();
-    Map<String, Room> exits = new HashMap<>();
+    private String name;
+    private Map<String, Room> exits = new HashMap<>();
+    private List<Item> items = new ArrayList<>();
+    private List<Character> characters = new ArrayList<>();
 
     public Room(String name) {
         this.name = name;
@@ -15,12 +16,16 @@ class Room {
         return name;
     }
 
-    public void addExit(String direction, Room room) {
-        exits.put(room.getName(), room);
+    public Map<String, Room> getExits() {
+        return exits;
     }
 
-    public Room getExit(String destination) {
-        return exits.get(destination);
+    public void addExit(String direction, Room room) {
+        exits.put(direction, room);
+    }
+
+    public List<Item> getItems() {
+        return items;
     }
 
     public void addItem(Item item) {
@@ -31,34 +36,11 @@ class Room {
         items.remove(item);
     }
 
-    public List<Item> getItems() {
-        return items;
-    }
-
-    public Item getItem(String name) {
-        for (Item item : items) {
-            if (item.getName().equalsIgnoreCase(name)) {
-                return item;
-            }
-        }
-        return null;
-    }
-
-    public void addCharacter(Character character) {
-        characters.add(character);
-    }
-
     public List<Character> getCharacters() {
         return characters;
     }
 
-
-    public Character getCharacter(String name) {
-        for (Character c : characters) {
-            if (c.getName().equalsIgnoreCase(name)) {
-                return c;
-            }
-        }
-        return null;
+    public void addCharacter(Character character) {
+        characters.add(character);
     }
 }

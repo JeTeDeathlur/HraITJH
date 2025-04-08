@@ -1,3 +1,4 @@
+import java.util.*;
 class TakeCommand extends Command {
     @Override
     public void execute(Game game, String[] args) {
@@ -5,18 +6,26 @@ class TakeCommand extends Command {
             System.out.println("Co chcete vzít?");
             return;
         }
+
         String itemName = args[1];
         Room room = game.getCurrentRoom();
-        Item item = room.getItem(itemName);
-        if (item != null) {
-            game.getInventory().addItem(item);
-            room.removeItem(item);
-            System.out.println("Sebrali jste: " + itemName);
-            if (itemName.equalsIgnoreCase("Peněženka")) {
-                game.setHasMoney(true);
+        Item itemToTake = null;
+
+        for (Item item : room.getItems()) {
+            if (item.getName().equalsIgnoreCase(itemName)) {
+                itemToTake = item;
+                break;
             }
+        }
+
+        if (itemToTake != null) {
+            game.getInventory().addItem(itemToTake);
+            room.removeItem(itemToTake);
+            System.out.println("Sebrali jste: " + itemToTake.getName());
         } else {
             System.out.println("Tento předmět zde není.");
         }
     }
 }
+
+
