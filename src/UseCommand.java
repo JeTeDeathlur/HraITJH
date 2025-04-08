@@ -22,7 +22,7 @@ class UseCommand extends Command {
             game.getCurrentRoom().addItem(new Item("Peněženka"));
             game.setKilledCook(true);
         } else if (itemName.equalsIgnoreCase("Mapa")) {
-            System.out.println("Mapa: Musíš se vrátit do jídelny!");
+            System.out.println("Mapa: Hlavní cela -> Temné chodby -> Jídelna -> Kuchyně -> Jídelna -> Sklad -> Kancelář vrátného.");
         } else if (itemName.equalsIgnoreCase("Peněženka")) {
             if (game.getCurrentRoom().getName().equalsIgnoreCase("Kancelář vrátného")) {
                 System.out.println("Podplatil jsi vrátného a utekl z vězení! Gratulujeme!");
