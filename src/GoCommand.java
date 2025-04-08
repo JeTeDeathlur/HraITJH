@@ -27,17 +27,22 @@ class GoCommand extends Command {
             if (destination.equalsIgnoreCase("Jídelna") && game.hasKilledCook()) {
                 System.out.println("Jídelna je prázdná a tichá po smrti kuchaře...");
             } else if (destination.equalsIgnoreCase("Jídelna")) {
-                System.out.println("Kuchař: Co tu děláš?! Okamžitě vypadni!");
+                System.out.println("Mezi vězni se šušká, že tě kuchař chce sníst za pozdní příchod.");
                 System.out.println("Chcete kuchaře zabít? (ano/ne)");
                 Scanner scanner = new Scanner(System.in);
-                String response = scanner.nextLine();
-                if (response.equalsIgnoreCase("ne")) {
-                    System.out.println("Vypukla vzpoura! Hra skončila.");
-                    System.exit(0);
-                } else {
-                    System.out.println("Možná by se hodilo podívat se do kuchyně...");
-                    game.setKilledCook(true);
+                while (true) {
+                    String response = scanner.nextLine().trim().toLowerCase();
+                    if (response.equals("ne")) {
+                        System.out.println("Kuchař naběhne do Jídelny z Kuchyně a sní tě za živa! Hra skončila.");
+                        System.exit(0);
+                    } else if (response.equals("ano")) {
+                        System.out.println("Možná by se hodilo podívat se za kuchařem do kuchyně a něco vymyslet...");
+                        break;
+                    } else {
+                        System.out.println("Tato možnost není v nabídce. Zadejte prosím 'ano' nebo 'ne':");
+                    }
                 }
+
             }
         } else {
             System.out.println("Tam se nemůžete dostat!");

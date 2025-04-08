@@ -54,7 +54,7 @@ class UseCommand extends Command {
                 System.out.println("Vrátný si všimne peněženky v tvé ruce a široce se usměje.");
                 System.out.println("„Tak tohle je ta pravá... No dobrá. Svoboda za svinstvo.“");
                 System.out.println("Plácnete si s vrátným. Dveře se otevírají.");
-                System.out.println("🎉 Vyhrál jsi! Úspěšně jsi unikl z pekla jménem věznice. 🎉");
+                System.out.println("🎉 Vyhrál jsi! Úspěšně jsi unikl z kanibalské věznice. 🎉");
                 System.exit(0);
             } else {
                 System.out.println("Tady peníze nepomohou.");

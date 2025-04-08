@@ -24,6 +24,13 @@ public class SearchCommand extends Command {
             System.out.println("Pod stolem leží umírající vězeň...");
             System.out.println("Vězeň: Podplať vrátného, jinak se nedostaneš ven!");
         }
+          else if (room.getName().equalsIgnoreCase("Sklad")) {
+            if (room.hasItem("Dopis od vězňů")) {
+                System.out.println("Našel jsi starý, potrhaný dopis. Vypadá to, že ho tu někdo schoval...");
+                System.out.println("\"Kuchař nás jednoho po druhém v noci odnášel do kuchyně. Mysleli jsme, že se dostaneme ven... Mýlili jsme se.");
+                System.out.println("Žral nás. Zaživa. Nenech ho chytit tě. Uteč. Vyprávěj náš osud světu!\"");
+            }
+         }
 
         for (Character character : room.getCharacters()) {
             System.out.println("- " + character.getName() + ": " + character.getDialogue());
